@@ -27,9 +27,7 @@ export default async function PortfolioPage() {
         <h3>Your trades</h3>
         <div className="grid">
           {(positions ?? []).map((position) => {
-            const marketTitle = Array.isArray(position.market)
-              ? position.market[0]?.title
-              : position.market?.title;
+            const marketTitle = position.market?.[0]?.title;
 
             return (
               <article key={position.id} className="card">
