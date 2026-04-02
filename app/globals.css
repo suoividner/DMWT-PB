@@ -1,0 +1,75 @@
+:root {
+  color-scheme: dark;
+  --bg: #060606;
+  --surface: #101010;
+  --surface-light: #171717;
+  --line: #2a2a2a;
+  --text: #f6f6f6;
+  --muted: #9ca3af;
+  --green: #14f195;
+  --red: #ff5b7f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1a1a1a, var(--bg) 50%);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.btn {
+  background: var(--surface-light);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover { opacity: 0.92; }
+
+.btn-green {
+  background: rgba(20, 241, 149, 0.18);
+  border-color: rgba(20, 241, 149, 0.52);
+}
+
+.btn-red {
+  background: rgba(255, 91, 127, 0.15);
+  border-color: rgba(255, 91, 127, 0.5);
+}
+
+input, textarea, select {
+  width: 100%;
+  background: #0d0d0d;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.72rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
