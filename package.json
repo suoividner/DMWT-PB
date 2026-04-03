@@ -1,29 +1,60 @@
-{
-  "name": "dmwt-betting",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.56.0",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.542.0",
-    "next": "15.4.6",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.15.30",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "eslint": "^9.30.1",
-    "eslint-config-next": "15.4.6",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5.8.3"
-  }
+'use client';
+
+import { useState } from 'react';
+
+export default function AdminMarketForm() {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    setLoading(true);
+    setMessage(null);
+
+    const res = await fetch('/api/admin/markets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: form.get('question'),
+        description: form.get('description'),
+        category: form.get('category'),
+        closesAt: form.get('closesAt')
+      })
+    });
+
+    const data = await res.json();
+    setLoading(false);
+    setMessage(data.error ?? data.message ?? 'Done');
+
+    if (res.ok) {
+      event.currentTarget.reset();
+      window.location.reload();
+    }
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <label>
+        Question
+        <input name="question" required placeholder="Will GTA 6 release in 2026?" />
+      </label>
+      <label>
+        Description
+        <textarea name="description" rows={4} placeholder="Optional market description and resolution criteria." />
+      </label>
+      <label>
+        Category
+        <input name="category" placeholder="Gaming" />
+      </label>
+      <label>
+        Close time
+        <input name="closesAt" type="datetime-local" required />
+      </label>
+      <button className="btn btn-primary" disabled={loading}>
+        {loading ? 'Creating...' : 'Create market'}
+      </button>
+      {message ? <div className="notice">{message}</div> : null}
+    </form>
+  );
 }
