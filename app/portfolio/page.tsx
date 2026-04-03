@@ -26,13 +26,17 @@ export default async function PortfolioPage() {
       <section className="card">
         <h3>Your trades</h3>
         <div className="grid">
-          {(positions ?? []).map((position) => (
-            <article key={position.id} className="card">
-              <strong>{position.market?.title}</strong>
-              <p style={{ color: "#9ca3af" }}>{position.side.toUpperCase()} • {position.shares.toFixed(2)} shares • Cost ${position.cost_basis}</p>
-              <p style={{ margin: 0 }}>{position.is_settled ? `Settled payout: $${position.payout}` : "Open position"}</p>
-            </article>
-          ))}
+          {(positions ?? []).map((position) => {
+            const marketTitle = position.market?.[0]?.title;
+
+            return (
+              <article key={position.id} className="card">
+                <strong>{marketTitle ?? "Unknown market"}</strong>
+                <p style={{ color: "#9ca3af" }}>{position.side.toUpperCase()} • {position.shares.toFixed(2)} shares • Cost ${position.cost_basis}</p>
+                <p style={{ margin: 0 }}>{position.is_settled ? `Settled payout: $${position.payout}` : "Open position"}</p>
+              </article>
+            );
+          })}
         </div>
       </section>
     </main>
