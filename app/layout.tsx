@@ -1,18 +1,15 @@
 import './globals.css';
-import NavBar from '@/components/NavBar';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'DMWT Betting',
-  description: 'Prediction market game with fake money, Discord login, and admin-managed markets.'
+export const metadata: Metadata = {
+  title: 'DMWT Markets',
+  description: 'Sleek demo prediction market landing page with animated odds and Discord login.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <NavBar />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
